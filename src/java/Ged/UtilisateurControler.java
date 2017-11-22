@@ -5,12 +5,11 @@
  */
 package Ged;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 /**
@@ -27,6 +26,23 @@ public class UtilisateurControler implements Serializable{
     
     private Utilisateur util;
     private Utilisateur connectedUtil;
+    private String verifMDP, newMDP;
+
+    public String getNewMDP() {
+        return newMDP;
+    }
+
+    public void setNewMDP(String newMDP) {
+        this.newMDP = newMDP;
+    }
+
+    public String getVerifMDP() {
+        return verifMDP;
+    }
+
+    public void setVerifMDP(String verifMDP) {
+        this.verifMDP = verifMDP;
+    }
 
     public UtilisateurControler() {
         util = new Utilisateur();
@@ -48,7 +64,7 @@ public class UtilisateurControler implements Serializable{
         this.connectedUtil = selectedUtil;
     }
 
-    public String testMDP() throws NoSuchAlgorithmException, IOException{
+    public String testMDP() {
         List<Utilisateur> utilisateurs;
         utilisateurs = dao.getAllUtilisateur();
         
@@ -56,13 +72,24 @@ public class UtilisateurControler implements Serializable{
             if (utilBDD.getIdentifiant().equals(util.getIdentifiant()) && utilBDD.getPassword().equals(util.getPassword())) {
                 connectedUtil = utilBDD;
                 return "boiteReception";
-                //FacesContext.getCurrentInstance().getExternalContext().redirect("boiteReception.xhtml");
             }
             else {
                 return "index";
-                //FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
             }
         }
         return "ici";
-    }    
+    }   
+    
+    public String changeMDP() {
+        List<Utilisateur> utilisateurs = dao.getAllUtilisateur();
+        
+        for(Utilisateur utilBDD : utilisateurs) {
+            if (utilBDD.getIdentifiant().equals(util.getIdentifiant()) && utilBDD.getPassword().equals(util.getPassword())) {
+                dao.updateMdp(newMDP, utilBDD.getIdUtilisateur());
+                return "index";
+            }
+        }
+        return "http://www.google.com";
+    }
+    
 }

@@ -31,4 +31,24 @@ public class DAO {
         Query query = em.createNamedQuery("Dossier.findAll");
         return query.getResultList();
     }
+    
+    public List getAllType() {
+        Query query = em.createNamedQuery("Typedocument.findAll");
+        return query.getResultList();
+    }
+    
+    public void updateMDP(String newMDP, Integer id) {
+        Query query = em.createQuery("UPDATE Utilisateur u SET u.password = :password WHERE u.idUtilisateur = :idUtilisateur")
+                        .setParameter("password", newMDP)
+                        .setParameter("idUtilisateur", id);
+        query.executeUpdate();
+    }
+    
+        public void updateMdp(String newMdp, Integer idConnectedUser) {
+        Query queryUpdateMdp = em.createQuery(
+                "UPDATE Utilisateur u SET u.password = :newMdp WHERE u.idUtilisateur = :idConnectedUser")
+                .setParameter("newMdp", newMdp)
+                .setParameter("idConnectedUser", idConnectedUser);
+        queryUpdateMdp.executeUpdate();
+    }
 }

@@ -40,7 +40,7 @@ public class DossierBean implements Serializable{
         this.dossier = dossier;
     }
 
-    public List allDossierForUser() {
+    public List<Dossier> allDossierForUser() {
         return dao.getAllDossier();
     }
 

@@ -14,21 +14,11 @@
             <p:growl autoUpdate="true"/>
             <!-- trouver le dossier le plus haut permettant d'avoir accès à tout-->
             <p:panelMenu style="width:300px">
-                <p:submenu label="Ajax Menuitems">
+                <p:submenu label="Mes">
                     <p:menuitem value="Save" actionListener="#{menuView.save}" icon="ui-icon-disk" />
-                    <p:menuitem value="Update" actionListener="#{menuView.update}"  icon="ui-icon-arrowrefresh-1-w" />
-                </p:submenu>
-                <p:submenu label="Non-Ajax Menuitem">
-                    <p:menuitem value="Delete" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-                </p:submenu>
-                <p:separator />
-                <p:submenu label="Navigations" >
-                    <p:submenu label="Links" icon="ui-icon-extlink">
-                    </p:submenu>
-                    <p:menuitem value="Mobile" icon="ui-icon-signal" />
                 </p:submenu>
             </p:panelMenu>
-        </h:form>
+        </h:form><br/>
         <p:button value="Ajouter un document" outcome="creationDocument" icon="ui-icon-star">
         </p:button>
     </h:body>
