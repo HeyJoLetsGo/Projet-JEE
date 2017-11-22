@@ -7,14 +7,11 @@ package Ged;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -26,7 +23,7 @@ import javax.xml.bind.DatatypeConverter;
 public class UtilisateurControler implements Serializable{
     
     @EJB
-    private UtilisateurDAO dao;
+    private DAO dao;
     
     private Utilisateur util;
     private Utilisateur connectedUtil;

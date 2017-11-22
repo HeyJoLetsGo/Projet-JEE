@@ -16,7 +16,7 @@ import javax.persistence.Query;
  * @author Jonathan
  */
 @Stateless
-public class UtilisateurDAO {
+public class DAO {
 
     @PersistenceContext(unitName = "JEEProjetPU")
     private EntityManager em;
@@ -26,4 +26,9 @@ public class UtilisateurDAO {
         return query.getResultList();
             
     }   
+    
+    public List getAllDossier() {
+        Query query = em.createNamedQuery("Dossier.findAll");
+        return query.getResultList();
+    }
 }
