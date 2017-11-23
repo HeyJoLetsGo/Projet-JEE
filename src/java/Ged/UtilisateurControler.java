@@ -25,7 +25,7 @@ public class UtilisateurControler implements Serializable{
     private DAO dao;
     
     private Utilisateur util;
-    private Utilisateur connectedUtil;
+    static public Utilisateur connectedUtil;
     private String verifMDP, newMDP;
 
     public String getNewMDP() {
@@ -72,9 +72,6 @@ public class UtilisateurControler implements Serializable{
             if (utilBDD.getIdentifiant().equals(util.getIdentifiant()) && utilBDD.getPassword().equals(util.getPassword())) {
                 connectedUtil = utilBDD;
                 return "boiteReception";
-            }
-            else {
-                return "index";
             }
         }
         return "ici";

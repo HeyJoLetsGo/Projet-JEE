@@ -7,9 +7,11 @@ package Ged;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.event.NodeSelectEvent;
 import org.primefaces.model.DefaultTreeNode;
@@ -26,10 +28,11 @@ public class DossierBean implements Serializable{
     private TreeNode root;
     private Utilisateur connected;
 
-   @PostConstruct
+    
+    @PostConstruct
     public void init() {
         root = new DefaultTreeNode("Root", null);
-        List<Dossier> dossiersUtil = dao.getAllDossierForUser(1);
+        List<Dossier> dossiersUtil = dao.getAllDossierForUser(UtilisateurControler.connectedUtil.getIdUtilisateur());
         TreeNode mesDoss = new DefaultTreeNode("Mes dossiers", root);
         
         for (Dossier dossUtil : dossiersUtil) {
@@ -44,7 +47,6 @@ public class DossierBean implements Serializable{
         }
 
     }
-    
    
     
     public TreeNode getRoot() {
@@ -70,6 +72,13 @@ public class DossierBean implements Serializable{
     public void setDossier(List<Dossier> dossier) {
         this.dossier = dossier;
     }
+    
+    public Utilisateur getConnected() {
+        return connected;
+    }
 
+    public void setConnected(Utilisateur connected) {
+        this.connected = connected;
+    }
 
 }
