@@ -85,11 +85,11 @@ public class UtilisateurControler implements Serializable{
         
         for(Utilisateur utilBDD : utilisateurs) {
             if (utilBDD.getIdentifiant().equals(util.getIdentifiant()) && utilBDD.getPassword().equals(util.getPassword())) {
-                dao.updateMdp(newMDP, utilBDD.getIdUtilisateur());
+                dao.updateMDP(newMDP, utilBDD.getIdUtilisateur());
                 return "index";
             }
         }
-        return "http://www.google.com";
+        return "problem";
     }
     
 }

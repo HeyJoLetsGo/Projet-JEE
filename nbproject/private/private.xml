@@ -5,11 +5,13 @@
         <group>
             <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/web/boiteReception.xhtml</file>
             <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/web/index.xhtml</file>
-            <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/src/java/Ged/UtilisateurDAO.java</file>
-            <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/src/java/Ged/MenuView.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/web/creationDocument.xhtml</file>
+            <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/src/java/Ged/DAO.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/src/java/Ged/Dossier.java</file>
             <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/src/java/Ged/UtilisateurControler.java</file>
-            <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/src/conf/persistence.xml</file>
             <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/src/java/Ged/Utilisateur.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/src/java/Ged/TypeDocumentBean.java</file>
+            <file>file:/C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/src/java/Ged/DossierBean.java</file>
         </group>
     </open-files>
 </project-private>

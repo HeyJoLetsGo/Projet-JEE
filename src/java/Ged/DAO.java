@@ -27,8 +27,9 @@ public class DAO {
             
     }   
     
-    public List getAllDossier() {
-        Query query = em.createNamedQuery("Dossier.findAll");
+    public List getAllDossierForUser(int idUtil) {
+        Query query = em.createQuery("SELECT distinct(d) FROM Dossier d JOIN Accede a JOIN Utilisateur u JOIN Contient c WHERE u.idUtilisateur = :idUtil")
+                .setParameter("idUtil", idUtil);
         return query.getResultList();
     }
     
@@ -37,6 +38,16 @@ public class DAO {
         return query.getResultList();
     }
     
+    public List getAllDocumentInDoss(int idDoss) {
+        Query query = em.createQuery("SELECT distinct(doc) FROM Document doc JOIN Contient c JOIN Dossier d WHERE d.idDossier = :idDoss")
+                .setParameter("idDoss", idDoss);
+        return query.getResultList();
+    }
+    
+    public List getAllDoss() {
+        Query query = em.createNamedQuery("Dossier.findAll");
+        return query.getResultList();
+    }
     public void updateMDP(String newMDP, Integer id) {
         Query query = em.createQuery("UPDATE Utilisateur u SET u.password = :password WHERE u.idUtilisateur = :idUtilisateur")
                         .setParameter("password", newMDP)
@@ -44,11 +55,4 @@ public class DAO {
         query.executeUpdate();
     }
     
-        public void updateMdp(String newMdp, Integer idConnectedUser) {
-        Query queryUpdateMdp = em.createQuery(
-                "UPDATE Utilisateur u SET u.password = :newMdp WHERE u.idUtilisateur = :idConnectedUser")
-                .setParameter("newMdp", newMdp)
-                .setParameter("idConnectedUser", idConnectedUser);
-        queryUpdateMdp.executeUpdate();
-    }
 }

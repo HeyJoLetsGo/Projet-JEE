@@ -13,11 +13,12 @@
         <h:form>
             <p:growl autoUpdate="true"/>
             <!-- trouver le dossier le plus haut permettant d'avoir accès à tout-->
-            <p:panelMenu style="width:300px">
-                <p:submenu label="Mes">
-                    <p:menuitem value="Save" actionListener="#{menuView.save}" icon="ui-icon-disk" />
-                </p:submenu>
-            </p:panelMenu>
+            <p:tree id="tree" value="#{dossierBean.root}" var="doc" style="margin-top:20px">
+                <p:treeNode id ="treeNode" expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                    
+                    <h:outputText value="#{doc}"/>
+                </p:treeNode>
+            </p:tree>
         </h:form><br/>
         <p:button value="Ajouter un document" outcome="creationDocument" icon="ui-icon-star">
         </p:button>
