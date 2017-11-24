@@ -33,8 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Typedocument.findAll", query = "SELECT t FROM Typedocument t")
     , @NamedQuery(name = "Typedocument.findByIdTypeDocument", query = "SELECT t FROM Typedocument t WHERE t.idTypeDocument = :idTypeDocument")
-    , @NamedQuery(name = "Typedocument.findByNomTypeDocument", query = "SELECT t FROM Typedocument t WHERE t.nomTypeDocument = :nomTypeDocument")
-    , @NamedQuery(name = "Typedocument.findByTempsDeConservation", query = "SELECT t FROM Typedocument t WHERE t.tempsDeConservation = :tempsDeConservation")})
+    , @NamedQuery(name = "Typedocument.findByNomTypeDocument", query = "SELECT t FROM Typedocument t WHERE t.nomTypeDocument = :nomTypeDocument")})
 public class Typedocument implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,10 +47,6 @@ public class Typedocument implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "nomTypeDocument")
     private String nomTypeDocument;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "tempsDeConservation")
-    private int tempsDeConservation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTypeDocument")
     private Collection<Document> documentCollection;
 
@@ -62,10 +57,9 @@ public class Typedocument implements Serializable {
         this.idTypeDocument = idTypeDocument;
     }
 
-    public Typedocument(Integer idTypeDocument, String nomTypeDocument, int tempsDeConservation) {
+    public Typedocument(Integer idTypeDocument, String nomTypeDocument) {
         this.idTypeDocument = idTypeDocument;
         this.nomTypeDocument = nomTypeDocument;
-        this.tempsDeConservation = tempsDeConservation;
     }
 
     public Integer getIdTypeDocument() {
@@ -82,14 +76,6 @@ public class Typedocument implements Serializable {
 
     public void setNomTypeDocument(String nomTypeDocument) {
         this.nomTypeDocument = nomTypeDocument;
-    }
-
-    public int getTempsDeConservation() {
-        return tempsDeConservation;
-    }
-
-    public void setTempsDeConservation(int tempsDeConservation) {
-        this.tempsDeConservation = tempsDeConservation;
     }
 
     @XmlTransient

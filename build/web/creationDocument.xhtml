@@ -10,16 +10,27 @@
     </h:head>
     <h:body>
         <h:form>
-            <p:outputLabel for="typeDocument" value="Type de document" />
-            <p:selectOneMenu id="typeDocument" style="width:200px">               
-                <f:selectItem itemLabel="Selectionner un dossier"/>
-                <f:selectItem itemLabel="Créer un nouveau dossier" itemValue="NewDoss" />
-                <f:selectItems value ="#{typeDocBean.allTypeDoc()}" var="type" itemLabel="#{type.nomTypeDocument}" />
+            <p:outputLabel for="typeDocument" value="Type de document : " />
+            <p:selectOneMenu id="typeDocument" value="#{documentBean.typeName}"  style="width:200px">               
+                <f:selectItem itemLabel="Selectionner un type de document"/>
+                <f:selectItems value ="#{typeDocBean.allTypeDoc()}" var="type" itemValue="#{type.nomTypeDocument}" itemLabel="#{type.nomTypeDocument}" />
             </p:selectOneMenu><br/>
             <p:growl id="messages" showDetail="true" /><br/>
-            <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/><br/>
-            <p:commandButton value="Submit" ajax="false" actionListener="#{fileUploadView.upload}" disabled="true" />
+            
+            <h:outputText value="Nom du document : " />
+            <p:inputText value="#{documentBean.newDoc.nomDocument}"/><br/><br/>
+            <h:outputText value="Commentaire : " />
+            <p:inputText value="#{documentBean.newDoc.commentaire}"/><br/><br/>
+            <p:outputLabel for="dossInject" value="Selectionnez le dossier : " />
+            <p:selectOneMenu id="dossInject" value="#{documentBean.dossName}" style="width:200px">               
+                <f:selectItem itemLabel="Selectionner un dossier"/>
+                <f:selectItems value ="#{dossierBean.allDoss()}" var="doss" itemValue="#{doss.nomDossier}" itemLabel="#{doss.nomDossier}" />
+            </p:selectOneMenu><br/>
+            <p:fileUpload value="#{documentBean.file}" mode="simple" skinSimple="true" /><br/>
+            
+            
+            
+            <p:commandButton value="Submit" ajax="false" actionListener="#{documentBean.upload(utilCtrl.connectedUtil)}" />
         </h:form>
-        <!-- Mettre path des docs dans la bdd et enregistrer les docs dans les sources>
     </h:body>
 </html>

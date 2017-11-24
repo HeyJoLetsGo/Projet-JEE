@@ -18,6 +18,10 @@
                 <p:treeNode id ="treeNode" expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
                     <h:outputText value="#{doc}"/>
                 </p:treeNode>
+                <p:treeNode type="document" icon="ui-icon-document">
+                    <h:outputText value="#{doc}"/>    
+                </p:treeNode>
+                <p:ajax event="select" listener="#{documentBean.onNodeSelect}" />
             </p:tree>
         </h:form><br/>   
     </h:body>

@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Document.findByNomDocument", query = "SELECT d FROM Document d WHERE d.nomDocument = :nomDocument")
     , @NamedQuery(name = "Document.findByDateCreation", query = "SELECT d FROM Document d WHERE d.dateCreation = :dateCreation")
     , @NamedQuery(name = "Document.findByDateDerniereModif", query = "SELECT d FROM Document d WHERE d.dateDerniereModif = :dateDerniereModif")
-    , @NamedQuery(name = "Document.findByStatut", query = "SELECT d FROM Document d WHERE d.statut = :statut")})
+    , @NamedQuery(name = "Document.findByStatut", query = "SELECT d FROM Document d WHERE d.statut = :statut")
+    , @NamedQuery(name = "Document.findByDocumentPath", query = "SELECT d FROM Document d WHERE d.documentPath = :documentPath")})
 public class Document implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -75,6 +76,11 @@ public class Document implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "statut")
     private String statut;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 250)
+    @Column(name = "documentPath")
+    private String documentPath;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDocument")
     private Collection<Contient> contientCollection;
     @JoinColumn(name = "idCreateur", referencedColumnName = "idUtilisateur")
@@ -91,12 +97,13 @@ public class Document implements Serializable {
         this.idDocument = idDocument;
     }
 
-    public Document(Integer idDocument, String nomDocument, Date dateCreation, Date dateDerniereModif, String statut) {
+    public Document(Integer idDocument, String nomDocument, Date dateCreation, Date dateDerniereModif, String statut, String documentPath) {
         this.idDocument = idDocument;
         this.nomDocument = nomDocument;
         this.dateCreation = dateCreation;
         this.dateDerniereModif = dateDerniereModif;
         this.statut = statut;
+        this.documentPath = documentPath;
     }
 
     public Integer getIdDocument() {
@@ -145,6 +152,14 @@ public class Document implements Serializable {
 
     public void setStatut(String statut) {
         this.statut = statut;
+    }
+
+    public String getDocumentPath() {
+        return documentPath;
+    }
+
+    public void setDocumentPath(String documentPath) {
+        this.documentPath = documentPath;
     }
 
     @XmlTransient

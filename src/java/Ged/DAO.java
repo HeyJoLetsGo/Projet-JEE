@@ -27,9 +27,9 @@ public class DAO {
             
     }   
     
-    public List getAllDossierForUser(int idUtil) {
-        Query query = em.createQuery("SELECT distinct(d) FROM Dossier d JOIN Accede a JOIN Utilisateur u JOIN Contient c WHERE u.idUtilisateur = :idUtil")
-                .setParameter("idUtil", idUtil);
+    public List getAllDossierForUser(Utilisateur util) {
+        Query query = em.createQuery("SELECT distinct(d) FROM Accede a JOIN Dossier d WHERE a.idUtilisateur = :util")
+                .setParameter("util", util);
         return query.getResultList();
     }
     
@@ -55,4 +55,22 @@ public class DAO {
         query.executeUpdate();
     }
     
+    public void addDocument(Document doc, Contient c) {
+        em.persist(doc);
+        em.flush();
+        em.persist(c);
+        em.flush();
+    }
+    
+    public List getTypeByName(String name) {
+        Query query = em.createNamedQuery("Typedocument.findByNomTypeDocument").setParameter("nomTypeDocument", name);
+        return query.getResultList();
+    }
+    
+    public List getDossByName(String name) {
+        Query query = em.createNamedQuery("Dossier.findByNomTypeDocument").setParameter("nomDossier", name);
+        return query.getResultList();
+    }
 }
+
+

@@ -32,7 +32,7 @@ public class DossierBean implements Serializable{
     @PostConstruct
     public void init() {
         root = new DefaultTreeNode("Root", null);
-        List<Dossier> dossiersUtil = dao.getAllDossierForUser(UtilisateurControler.connectedUtil.getIdUtilisateur());
+        List<Dossier> dossiersUtil = dao.getAllDossierForUser(UtilisateurControler.connectedUtil);
         TreeNode mesDoss = new DefaultTreeNode("Mes dossiers", root);
         
         for (Dossier dossUtil : dossiersUtil) {
@@ -40,7 +40,7 @@ public class DossierBean implements Serializable{
             List<Document> documentInside = dao.getAllDocumentInDoss(dossUtil.getIdDossier());
             
             for(Document doc : documentInside) {
-                newNode.getChildren().add(new DefaultTreeNode(doc.getNomDocument(),newNode));
+                newNode.getChildren().add(new DefaultTreeNode("document", doc.getNomDocument(),newNode));
             }
             
             mesDoss.getChildren().add(newNode);
@@ -79,6 +79,10 @@ public class DossierBean implements Serializable{
 
     public void setConnected(Utilisateur connected) {
         this.connected = connected;
+    }
+    
+    public List<Dossier> allDoss(){
+        return dao.getAllDoss();
     }
 
 }
