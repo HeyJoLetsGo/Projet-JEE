@@ -13,16 +13,21 @@
         <!-- barre de recherche de dossier/doc -->
         <p:button value="Ajouter un document" outcome="creationDocument" icon="ui-icon-star"/>
         <h:form>
-            <p:growl autoUpdate="true"/>
+            
             <p:tree id="tree" value="#{dossierBean.root}" var="doc" style="margin-top:20px">
                 <p:treeNode id ="treeNode" expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
                     <h:outputText value="#{doc}"/>
                 </p:treeNode>
                 <p:treeNode type="document" icon="ui-icon-document">
-                    <h:outputText value="#{doc}"/>    
+                    <p:commandLink id="ajax" value="#{doc}" actionListener="#{documentBean.openFile()}"/>  
                 </p:treeNode>
-                <p:ajax event="select" listener="#{documentBean.onNodeSelect}" />
+                <p:ajax event="select" listener="#{documentBean.openFile()}" />
             </p:tree>
-        </h:form><br/>   
+        </h:form><br/>
+        <h:form>
+            <p:commandButton onclick="this.form.target = '_blank'"
+                     actionListener="#{documentBean.openFile()}"
+                     ajax="false" />
+        </h:form>
     </h:body>
 </html>

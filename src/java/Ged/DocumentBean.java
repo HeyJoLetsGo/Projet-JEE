@@ -6,6 +6,11 @@
 package Ged;
 
 import static com.sun.faces.facelets.util.Path.context;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -20,6 +25,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
 import static org.primefaces.component.focus.Focus.PropertyKeys.context;
 import static org.primefaces.component.menuitem.UIMenuItem.PropertyKeys.outcome;
@@ -125,8 +131,8 @@ public class DocumentBean implements Serializable{
 
     public void upload(Utilisateur connectedUser) throws IOException {
         if(file != null) {
-            List<Typedocument> listeType = dao.getTypeByName(typeName);
-            List<Dossier> listeDoss = dao.getDossByName(typeName);
+            doss = (Dossier) dao.getAllDoss().get(0);
+            List<Typedocument> listeType = dao.getAllType();
             newDoc.setIdCreateur(connectedUser);
             Date actuelle = new Date();
             newDoc.setDateCreation(actuelle);
@@ -146,9 +152,10 @@ public class DocumentBean implements Serializable{
                 String filename2 = FilenameUtils.getBaseName(file.getFileName()); 
                 String extension2 = FilenameUtils.getExtension(file.getFileName());
                 newDoc.setDocumentPath(file2.getFileName().toString());
-                c.setIdDossier(listeDoss.get(0));
+                c.setIdDossier(doss);
                 c.setIdDocument(newDoc);
-                dao.addDocument(newDoc, c);
+                dao.addDocument(newDoc);
+                dao.addContient(c);
                 newDoc = new Document();
                 file = null;
             }
@@ -165,5 +172,45 @@ public class DocumentBean implements Serializable{
         .handleNavigation(FacesContext.getCurrentInstance(),
                 "null", "administration.xhtml");
     }
+    
+    
+    public void openFile() throws FileNotFoundException, IOException {
+        File file = new File("C:/Users/Jonathan/Documents/NetBeansProjects/JEEProjet/web/ressources/doc/", "remove_blinks.pdf");
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+        BufferedInputStream input = null;
+        BufferedOutputStream output = null;
+
+        try {
+            // Open file.
+            input = new BufferedInputStream(new FileInputStream(file), 10240);
+
+            // Init servlet response.
+            response.reset();
+            // lire un fichier pdf
+            response.setHeader("Content-type", "application/pdf"); 
+            response.setContentLength((int)file.length());
+
+            response.setHeader("Content-disposition", "inline; filename=3" );
+            response.setHeader("pragma", "public");
+            output = new BufferedOutputStream(response.getOutputStream(), 10240);
+
+            // Write file contents to response.
+            byte[] buffer = new byte[10240];
+            int length;
+            while ((length = input.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+
+            // Finalize task.
+            output.flush();
+        } finally {
+            // Gently close streams.
+
+                output.close();
+                input.close();
+        }
+}
 
 }

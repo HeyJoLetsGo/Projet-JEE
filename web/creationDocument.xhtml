@@ -10,11 +10,6 @@
     </h:head>
     <h:body>
         <h:form>
-            <p:outputLabel for="typeDocument" value="Type de document : " />
-            <p:selectOneMenu id="typeDocument" value="#{documentBean.typeName}"  style="width:200px">               
-                <f:selectItem itemLabel="Selectionner un type de document"/>
-                <f:selectItems value ="#{typeDocBean.allTypeDoc()}" var="type" itemValue="#{type.nomTypeDocument}" itemLabel="#{type.nomTypeDocument}" />
-            </p:selectOneMenu><br/>
             <p:growl id="messages" showDetail="true" /><br/>
             
             <h:outputText value="Nom du document : " />
@@ -22,7 +17,7 @@
             <h:outputText value="Commentaire : " />
             <p:inputText value="#{documentBean.newDoc.commentaire}"/><br/><br/>
             <p:outputLabel for="dossInject" value="Selectionnez le dossier : " />
-            <p:selectOneMenu id="dossInject" value="#{documentBean.dossName}" style="width:200px">               
+            <p:selectOneMenu id="dossInject" style="width:200px">               
                 <f:selectItem itemLabel="Selectionner un dossier"/>
                 <f:selectItems value ="#{dossierBean.allDoss()}" var="doss" itemValue="#{doss.nomDossier}" itemLabel="#{doss.nomDossier}" />
             </p:selectOneMenu><br/>
@@ -30,7 +25,7 @@
             
             
             
-            <p:commandButton value="Submit" ajax="false" actionListener="#{documentBean.upload(utilCtrl.connectedUtil)}" />
+            <p:commandButton value="Ajouter" ajax="false" action="boiteReception" actionListener="#{documentBean.upload(utilCtrl.connectedUtil)}" />
         </h:form>
     </h:body>
 </html>

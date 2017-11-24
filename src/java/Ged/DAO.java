@@ -55,9 +55,12 @@ public class DAO {
         query.executeUpdate();
     }
     
-    public void addDocument(Document doc, Contient c) {
+    public void addDocument(Document doc) {
         em.persist(doc);
         em.flush();
+    }
+    
+    public void addContient(Contient c) {
         em.persist(c);
         em.flush();
     }
